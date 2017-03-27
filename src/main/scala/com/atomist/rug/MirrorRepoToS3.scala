@@ -1,9 +1,9 @@
 package com.atomist.rug
 
-import com.atomist.rug.spi.{AnnotatedRugFunction, FunctionResponse, JsonBodyOption, StringBodyOption}
-import com.atomist.rug.spi.Handlers.{Response, Status}
-import com.atomist.rug.spi.annotation.{Parameter, RugFunction, Secret, Tag}
 import com.atomist.rug.runtime.RugSupport
+import com.atomist.rug.spi.Handlers.Status
+import com.atomist.rug.spi.annotation.{Parameter, RugFunction, Secret, Tag}
+import com.atomist.rug.spi.{AnnotatedRugFunction, FunctionResponse, JsonBodyOption, StringBodyOption}
 import com.typesafe.scalalogging.LazyLogging
 
 class MirrorRepoToS3
@@ -19,8 +19,7 @@ class MirrorRepoToS3
 
     try {
       FunctionResponse(Status.Success, Option("Successfully ran function.."), None, JsonBodyOption(None))
-    }
-    catch {
+    } catch {
       case e: Exception => FunctionResponse(Status.Failure, Some("Error running function..."), None, StringBodyOption(e.getMessage))
     }
   }
