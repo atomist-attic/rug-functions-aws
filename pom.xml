@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.atomist.rug</groupId>
     <artifactId>rug-functions-aws</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
     <name>rug-functions-aws</name>
     <description>rug-functions-aws</description>
@@ -15,13 +15,14 @@
         <scala.version>2.11.8</scala.version>
         <scala.binary.version>2.11</scala.binary.version>
         <rug.version>[0.17.3,0.18.0)</rug.version>
+        <aws.sdk.version>1.11.109</aws.sdk.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.atomist</groupId>
-                <artifactId>atomist-bom</artifactId>
-                <version>0.9.0</version>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>${aws.sdk.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -34,7 +35,31 @@
             <version>${rug.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atomist</groupId>
+            <artifactId>github-artifact-source</artifactId>
+            <version>0.2.0-20170327154356</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.scalaj</groupId>
             <artifactId>scalaj-http_${scala.binary.version}</artifactId>
