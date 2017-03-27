@@ -1,0 +1,17 @@
+---
+kind: "operation"
+client: "rug-cli 0.28.0"
+generator:
+  name: "NewScalaRugFunctionProject"
+  group: "atomist-rugs"
+  artifact: "rug-function-editors"
+  version: "0.1.0-SNAPSHOT"
+  origin:
+    repo: "git@github.com:atomist-rugs/rug-functions-github.git"
+    branch: "master"
+    sha: "e1fc7f9"
+  parameters:
+    - "functionName": "MirrorRepoToS3"
+    - "group": "com.atomist.rug"
+    - "project_name": "rug-functions-aws"
+
