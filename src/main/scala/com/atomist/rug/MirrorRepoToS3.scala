@@ -12,9 +12,8 @@ import com.atomist.rug.spi.annotation.{Parameter, RugFunction, Secret, Tag}
 import com.atomist.rug.spi.{AnnotatedRugFunction, FunctionResponse, StringBodyOption}
 import com.atomist.source.SimpleCloudRepoId
 import com.atomist.source.filter.ArtifactFilter
-import com.atomist.source.github.{GitHubArtifactSource, GitHubArtifactSourceLocator}
+import com.atomist.source.github.{GitHubArtifactSource, GitHubArtifactSourceLocator, GitHubServices}
 import com.typesafe.scalalogging.LazyLogging
-import org.kohsuke.github.GitHub
 
 import scala.util.{Success, Try}
 
@@ -49,26 +48,24 @@ class MirrorRepoToS3
         override def getCredentials: AWSCredentials = creds
       }).withRegion(region).build()
 
-      //ensure bucket
+      // Ensure bucket
       if (!s3.doesBucketExist(bucket)) {
-        s3.createBucket(bucket);
+        s3.createBucket(bucket)
       }
 
-      //enable versioning
+      // Enable versioning
       def configRequest =
         new SetBucketVersioningConfigurationRequest(bucket,
           new BucketVersioningConfiguration(BucketVersioningConfiguration.ENABLED))
       s3.setBucketVersioningConfiguration(configRequest)
 
-      //fetch file list TODO - add glob
+      // Fetch file list TODO - add glob
       val cri = SimpleCloudRepoId(repo, owner)
-      val tghas = GitHubArtifactSource(GitHubArtifactSourceLocator(cri), GitHub.connectUsingOAuth(token), new ArtifactFilter {
+      val tghas = GitHubArtifactSource(GitHubArtifactSourceLocator(cri), GitHubServices(token), new ArtifactFilter {
         override def apply(s: String) = {
           val fs = FileSystems.getDefault
           Try(fs.getPathMatcher(s"glob:$glob")) match {
-            case Success(matcher) => {
-              matcher.matches(new File(s).toPath)
-            }
+            case Success(matcher) => matcher.matches(new File(s).toPath)
             case _ => false
           }
         }
@@ -80,12 +77,12 @@ class MirrorRepoToS3
         def request = new PutObjectRequest(bucket, file.path, file.inputStream(), meta)
         s3.putObject(request)
       })
-      FunctionResponse(Status.Success, Option(s"Successfully mirrored ${tghas.allFiles.size} files from $owner/$repo to $bucket in $region"), None, None)
+      FunctionResponse(Status.Success, Some(s"Successfully mirrored ${tghas.allFiles.size} files from $owner/$repo to $bucket in $region"), None, None)
     }
     catch {
       case e: Exception =>
         val msg = s"Failed to mirror $owner/$repo to $bucket in $region"
-        logger.error(msg,e)
+        logger.warn(msg, e)
         FunctionResponse(Status.Failure, Some(msg), None, StringBodyOption(e.getMessage))
     }
   }
