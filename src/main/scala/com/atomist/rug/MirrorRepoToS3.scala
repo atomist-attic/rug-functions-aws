@@ -6,7 +6,7 @@ import java.nio.file.FileSystems
 import com.amazonaws.auth.{AWSCredentials, AWSCredentialsProvider, BasicAWSCredentials}
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.{BucketVersioningConfiguration, ObjectMetadata, PutObjectRequest, SetBucketVersioningConfigurationRequest}
-import com.atomist.rug.runtime.RugSupport
+import com.atomist.rug.runtime.Rug
 import com.atomist.rug.spi.Handlers.Status
 import com.atomist.rug.spi.annotation.{Parameter, RugFunction, Secret, Tag}
 import com.atomist.rug.spi.{AnnotatedRugFunction, FunctionResponse, StringBodyOption}
@@ -26,7 +26,7 @@ import scala.util.{Success, Try}
   */
 class MirrorRepoToS3
   extends AnnotatedRugFunction
-    with RugSupport
+    with Rug
     with LazyLogging{
 
   @RugFunction(name = "MirrorRepoToS3", description = "Mirror a GitHub repo to s3",
