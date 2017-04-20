@@ -38,8 +38,8 @@ function main() {
         fi
     fi
 
-    if ! $mvn install -Dmaven.javadoc.skip=true; then
-        err "maven install failed"
+    if ! $mvn test -Dmaven.javadoc.skip=true; then
+        err "maven test failed"
         return 1
     fi
 
@@ -54,7 +54,11 @@ function main() {
         if [[ $TRAVIS_BRANCH == master ]]; then
             mvn_deploy_args=-DaltDeploymentRepository=public-atomist-dev::default::https://atomist.jfrog.io/atomist/libs-dev-local
         fi
-        if ! $mvn deploy -DskipTests $mvn_deploy_args; then
+        if ! gpg --allow-secret-key-import --import atomist_sec.gpg; then
+            err "Error import gpg keys"
+            return 1
+        fi
+        if ! $mvn deploy -DskipTests $mvn_deploy_args -PsignedRelease -Dgpg.executable=gpg -Dgpg.keyname=DA85ED8F -Dgpg.passphrase="$GPG_PASSPHRASE"; then
             err "maven deploy failed"
             return 1
         fi
