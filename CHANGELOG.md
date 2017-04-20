@@ -7,12 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist/rug/compare/0.4.0...HEAD
+[Unreleased]: https://github.com/atomist/rug/compare/0.5.0...HEAD
+
+## [0.5.0] - 2017-04-20
+
+[0.5.0]: https://github.com/atomist/rug-functions-aws/compare/0.4.0...0.5.0
+
+Bucket-to-bucket release
 
 ### Added
 
--   Added S3 Bucket to Bucket copy rug function.
--   Added verification integration test for S3 Bucket to Bucket copy rug function.
+-   Added S3 Bucket to Bucket copy rug function
+-   Added verification integration test for S3 Bucket to Bucket copy
+    rug function
 
 ## [0.4.0] - 2017-04-17
 
