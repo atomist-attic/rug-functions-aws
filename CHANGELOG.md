@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist/rug/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/atomist/rug/compare/0.6.0...HEAD
+
+# [0.6.0] - 2017-04-21
+
+[0.6.0]: https://github.com/atomist/rug-functions-aws/compare/0.5.0...0.6.0
+
+Signing build added.
+
+### Added
+
+-   Signing to allow this rug function library to be available in Atomist
 
 ## [0.5.0] - 2017-04-20
 
