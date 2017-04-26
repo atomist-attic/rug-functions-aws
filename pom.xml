@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.atomist.rug</groupId>
     <artifactId>rug-functions-aws</artifactId>
-    <version>0.6.1</version>
+    <version>0.7.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>rug-functions-aws</name>
     <description>rug-functions-aws</description>
