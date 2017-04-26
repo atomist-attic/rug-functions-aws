@@ -1,1 +1,2 @@
 com.atomist.rug.MirrorRepoToS3
+com.atomist.rug.S3BucketToBucketCopy
