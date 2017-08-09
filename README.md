@@ -1,7 +1,6 @@
 # Atomist 'rug-functions-aws'
 
 [![Build Status](https://travis-ci.org/atomist/rug-functions-aws.svg?branch=master)](https://travis-ci.org/atomist/rug-functions-aws)
-[![Slack Status](https://join.atomist.com/badge.svg)](https://join.atomist.com)
 
 Rug functions wrapping the [AWS][aws] API.
 
